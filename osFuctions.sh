@@ -16,7 +16,7 @@ currentUser () {
 }
 
 # This Function checks the OS is running Rasprian V9 Stretch or exits
-checkOSrasprian () {
+checkOsVersion () {
 	
 # set OS flag variable
 	OSFLAG='"Ubuntu 18.04 LTS"'
@@ -115,7 +115,7 @@ echo "path = $BINPATH"
 
 # call functions
 #currentUser
-checkOSrasprian 
+checkOsVersion
 #checkMem
 #changePIpw
 #echo ""
