@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+#setup log location for install script
+
 # check current user and move to root
 currentUser () {
 	
@@ -15,7 +17,7 @@ currentUser () {
 	fi
 }
 
-# This Function checks the OS is running Rasprian V9 Stretch or exits
+# This Function checks the OS is running Ubuntu 18 LTS or exits
 checkOsVersion () {
 	
 # set OS flag variable
@@ -40,36 +42,8 @@ checkOsVersion () {
 	fi
 }
 
-# This Function checks that there is enough swap allocated to run node software and creates more if required
-checkMem () {
 
-# check swap- space if less that 2GB add space
-CURRENTSWAP=`free -m | grep Swap | awk '{print $2}'`
-echo "system has $CURRENTSWAP of swap"
-	if [ $CURRENTSWAP -lt 1023 ]
-	then
-	echo "we need more swap space"
-	# first check if there is enough disk space to accomodate
-	DISKSPACE=`df -m / | awk '{print $4}' | tail -1`
-		if [ $DISKSPACE -gt 2000 ]
-		then
-		SWAPSIZE=`cat /etc/dphys-swapfile | grep SIZE`
-		sed -i -r "s/$SWAPSIZE/CONF_SWAPSIZE=1024/" /etc/dphys-swapfile
-		/etc/init.d/dphys-swapfile restart
-		free
-		else
-		echo "you do not have enough disk space to increase swap"
-		fi
-		 
-	else
-	echo "we have enough swap"
-	fi
-
-# add swap
-# re-check if addition is successful
-	
-}
-
+# Create a New User PALIGADMIN add to sudoers
 
 
 changePIpw () {
@@ -93,18 +67,24 @@ echo " added user to ssgd_configZ"
 /usr/sbin/service ssh restart
 #restart SSHDl
 fi
-
-
 }
 
+#Check Time Zone
 
-# shows which package provides a binary 
-whichPackage () {
-BINPATH=`which $1`
-echo "path = $BINPATH"
+#Install base packages
+#apt-get update and upgrade
+#SSH
+#IFCONFIG
+#PING
+#CRON
 
-	
-	}
+#setup basic cron jobs 
+
+#setup ssh key for user PALIGADMIN
+
+#Disable password authentication for SSH
+
+#Setup base firewall rules
 
 
 
@@ -113,12 +93,7 @@ echo "path = $BINPATH"
 
 
 
-# call functions
-#currentUser
-checkOsVersion
-#checkMem
-#changePIpw
-#echo ""
-#whichPackage "date"
 
-# adding a line to test git commits
+
+
+
