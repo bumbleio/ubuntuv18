@@ -72,9 +72,7 @@ basePackagadd	{
 	else
 		apt-get update -y && apt-get upgrade -y
 		apt-get install net-tools -y
-		
 	fi
-	
 }
 #apt-get update and upgrade
 #SSH
@@ -84,9 +82,12 @@ basePackagadd	{
 
 #setup basic cron jobs 
 
-#setup ssh key for user PALIGADMIN
+#setup ssh key for user PALIGADMIN and Disable password authentication for SSH
+sshConfig ()	{
+	echo "Setting up SSH config"
+	echo "Please copy in your SSH pub
+}
 
-#Disable password authentication for SSH
 
 #Setup base firewall rules
 
