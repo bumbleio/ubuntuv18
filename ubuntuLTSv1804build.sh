@@ -60,19 +60,6 @@ fi
 }
 
 
-changePIpw () {
-echo "Please set new complex password for user PI:"
-sleep 1	
-/usr/bin/passwd pi
-
-if [ $? -ne 0 ] 
-then
-echo "Password reset failed - please try again:"
-sleep 1
-changePIpw
-fi
-
-}
 
 #Check Time Zone
 
