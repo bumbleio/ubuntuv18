@@ -45,25 +45,37 @@ checkOsVersion () {
 # Create a New User PALIGADMIN add to sudoers
 
 userAdd ()	{
-useradd -md /home/paligadmin -G sudo paligadmin
-echo "created user paligadmin"
-echo "Please set new complex password for user paligadmin:"
-sleep 1	
-/usr/bin/passwd paligadmin
+		
+	useradd -md /home/paligadmin -G sudo paligadmin
+	echo "created user paligadmin"
+	echo "Please set new complex password for user paligadmin:"
+	sleep 1	
+	/usr/bin/passwd paligadmin
 
-if [ $? -ne 0 ] 
-then
-echo "Password reset failed - please try again:"
-sleep 1
-userAdd
-fi	
+	if [ $? -ne 0 ] 
+	then
+		echo "Password reset failed - please try again:"
+		sleep 1
+		userAdd
+	fi	
 }
-
 
 
 #Check Time Zone
 
 #Install base packages
+basePackagadd	{
+	ping -c google.com
+	if [ "$?" -ne "0" ]
+	then
+		echo "internet down -check connectivity"
+	else
+		apt-get update -y && apt-get upgrade -y
+		apt-get install net-tools -y
+		
+	fi
+	
+}
 #apt-get update and upgrade
 #SSH
 #IFCONFIG
