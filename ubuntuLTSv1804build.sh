@@ -42,8 +42,22 @@ checkOsVersion () {
 	fi
 }
 
-
 # Create a New User PALIGADMIN add to sudoers
+
+userAdd ()	{
+useradd -md /home/paligadmin -G sudo paligadmin
+echo "created user paligadmin"
+echo "Please set new complex password for user paligadmin:"
+sleep 1	
+/usr/bin/passwd paligadmin
+
+if [ $? -ne 0 ] 
+then
+echo "Password reset failed - please try again:"
+sleep 1
+userAdd
+fi	
+}
 
 
 changePIpw () {
@@ -58,15 +72,6 @@ sleep 1
 changePIpw
 fi
 
-# remove Pi from remote logins
-cat /etc/ssh/sshd_config | grep -w 'DenyUsers pi' >> /dev/null
-if [ $? -ne 0 ]
-then
-echo "DenyUsers pi" >> /etc/ssh/sshd_config
-echo " added user to ssgd_configZ"
-/usr/sbin/service ssh restart
-#restart SSHDl
-fi
 }
 
 #Check Time Zone
