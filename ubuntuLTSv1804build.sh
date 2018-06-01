@@ -50,21 +50,45 @@ userAdd ()	{
 	echo "created user paligadmin"
 	echo "Please set new complex password for user paligadmin:"
 	sleep 1	
+	
 	/usr/bin/passwd paligadmin
-
 	if [ $? -ne 0 ] 
 	then
 		echo "Password reset failed - please try again:"
 		sleep 1
 		userAdd
 	fi	
+	
+	sudo -u paligadmin mkdir /home/paligadmin/.ssh/
+	chmod 700 /home/paligadmin/.ssh/
+	sudo -u paligadmin touch /home/paligadmin/.ssh/authorized_keys
+	chmod 600 /home/paligadmin/.ssh/authorized_keys
+	
+	
+}
+
+sshAddKey ()	{
+	
+	echo "Adding SSH Secuirty"
+	echo "Please copy SSH public key:"
+	read KEY
+	echo "$KEY" > /home/paligadmin/.ssh/authorized_keys
+	echo "Please now test SSH access using your key"
+	echo "using paligadmin@IPaddress"
+	echo  "Type Y or y if ssh test was successful"
+	read FLAG
+	if [ "$FLAG" != "Y" ] && [ "$FLAG" != "y" ];
+	then
+	sshAddKey
+	fi
 }
 
 
-#Check Time Zone
 
+#Check Time Zone
 #Install base packages
-basePackagadd	{
+
+basePackagadd ()	{
 	ping -c google.com
 	if [ "$?" -ne "0" ]
 	then
@@ -74,6 +98,7 @@ basePackagadd	{
 		apt-get install net-tools -y
 	fi
 }
+
 #apt-get update and upgrade
 #SSH
 #IFCONFIG
@@ -83,15 +108,17 @@ basePackagadd	{
 #setup basic cron jobs 
 
 #setup ssh key for user PALIGADMIN and Disable password authentication for SSH
-sshConfig ()	{
-	echo "Setting up SSH config"
-	echo "Please copy in your SSH pub
-}
+
 
 
 #Setup base firewall rules
+#rename server 
+#set time zone
 
-
+#currentUser
+#checkOsVersls
+#userAdd
+sshAddKey
 
 
 
