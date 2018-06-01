@@ -122,7 +122,12 @@ basePackagadd ()	{
 
 #setup ssh key for user PALIGADMIN and Disable password authentication for SSH
 
-
+setHostname () {
+	echo " Please enter desired hostname: "
+	read HOSTNAME
+	hostnamectl set-hostname "HOSTNAME"
+	sed -i 's/preserve_hostname: false/preserve_hostname: true/' /etc/cloud/cloud.cfg
+}
 
 #Setup base firewall rules
 #rename server 
