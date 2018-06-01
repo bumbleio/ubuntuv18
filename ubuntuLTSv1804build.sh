@@ -81,8 +81,21 @@ sshAddKey ()	{
 	then
 	sshAddKey
 	fi
+
 }
 
+secureSsh ()	{
+	echo "Do you want to restrict ssh password authnetication. Y or N"
+	read RESPONSE
+	if [ "$FLAG" != "Y" ] && [ "$FLAG" != "y" ];
+	then
+	echo "Restricting ssh password login "
+	sed -i 's/#PasswordAuthnetication yes/PasswordAuthnetication no/' /etc/ssh/sshd_config
+	systemctl reload sshd
+	else
+	echo "Left default configurtaion - SSH  password authnetication enabled"
+	fi
+}
 
 
 #Check Time Zone
@@ -118,7 +131,7 @@ basePackagadd ()	{
 #currentUser
 #checkOsVersls
 #userAdd
-sshAddKey
+#sshAddKey
 
 
 
