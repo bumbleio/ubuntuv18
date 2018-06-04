@@ -120,7 +120,7 @@ basePackagadd ()	{
 
 #setup basic cron jobs 
 
-#setup ssh key for user PALIGADMIN and Disable password authentication for SSH
+
 
 setHostname () {
 	echo " Please enter desired hostname: "
@@ -132,11 +132,35 @@ setHostname () {
 #Setup base firewall rules
 #rename server 
 #set time zone
+setTimeZone () {
+	echo " Please Nominate TimeZone - 1 for UK GMT or 2 for US central"
+	read ZONE
+	case $ZONE in
+	1) 	echo "Setting timezone to UK gmt"
+		rm /etc/localtime
+		ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
+		sleep 5
+		echo "The local time on this machine is `date`"
+	;;
+	2) 	echo "Setting timezone to US cst"
+		rm /etc/localtime
+		ln -s /usr/share/zoneinfo/US/Central /etc/localtime
+		sleep 5
+		echo "The local time on this machine is `date`"
+	;;
+	*) 	echo "incorrect entry -Please try again"
+		setTimeZone
+	;;
+	esac
+	
+	
+}
 
 #currentUser
 #checkOsVersls
 #userAdd
 #sshAddKey
+setTimeZone
 
 
 
