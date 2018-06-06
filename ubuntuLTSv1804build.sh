@@ -126,7 +126,7 @@ secureSsh ()	{
 	case $RESPONSE in
 		[yY] | [yY][Ee][Ss] )
 		echo "Restricting ssh password login "
-		sed -i 's/#PasswordAuthnetication yes/PasswordAuthnetication no/' /etc/ssh/sshd_config
+		sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 		systemctl reload sshd
 		;;
 	
