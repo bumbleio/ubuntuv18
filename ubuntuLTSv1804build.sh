@@ -43,7 +43,7 @@ checkOsVersion () {
 	fi
 }
 
-# Create a New User PALIGADMIN add to sudoers
+# Set server name
 setHostname () {
 	echo " Please enter desired hostname: "
 	read HOSTNAME
@@ -179,22 +179,21 @@ basePackageAdd ()	{
 
 # Setup firewalls
 setFirewallRules () {
-
+	ufw allow OpenSSH
+	ufw enable
 }
 
 
 
-
-
-
-
-#currentUser
-#checkOsVersls
-#userAdd
-#sshAddKey
-#setTimeZone
-#basePackageAdd
-#setNetworking
+currentUser
+checkOsVersion
+setHostname
+setTimeZone
+userAdd
+sshAddKey
+secureSsh
+basePackageAdd
+setFirewallRules
 
 
 
