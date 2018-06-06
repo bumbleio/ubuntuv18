@@ -123,14 +123,17 @@ sshAddKey ()	{
 secureSsh ()	{
 	echo "Do you want to restrict ssh password authnetication. Y or N"
 	read RESPONSE
-	if [ "$FLAG" != "Y" ] && [ "$FLAG" != "y" ];
-	then
-	echo "Restricting ssh password login "
-	sed -i 's/#PasswordAuthnetication yes/PasswordAuthnetication no/' /etc/ssh/sshd_config
-	systemctl reload sshd
-	else
-	echo "Left default configurtaion - SSH  password authnetication enabled"
-	fi
+	case $RESPONSE in
+		[yY] | [yY][Ee][Ss] )
+		echo "Restricting ssh password login "
+		sed -i 's/#PasswordAuthnetication yes/PasswordAuthnetication no/' /etc/ssh/sshd_config
+		systemctl reload sshd
+		;;
+	
+		*)
+		echo "Left default configurtaion - SSH  password authnetication enabled"
+		;;
+		esac
 }
 
 # This function is not working set
