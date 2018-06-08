@@ -1,0 +1,6 @@
+6/8/2018
+# This is a quick and dirty bash quick to provision a unbuntu 18.04 LTS server.
+# It needs to be run as root
+# You can edit the username as you like but will just to find / replace on script
+# It implments basic security removing ssh root logins, accepting ssk kets #only
+It enables firewall and allow incoming SSH only
